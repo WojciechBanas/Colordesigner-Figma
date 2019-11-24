@@ -1,0 +1,70 @@
+@import 'normalize';
+@import 'tabs';
+@import 'btn';
+@import 'label';
+@import 'color-palette';
+@import 'images-list';
+@import 'color-swatches';
+@import 'color-info';
+@import 'range-slider';
+@import 'forms';
+@import 'color-list';
+@import 'modal';
+
+body{
+    font: normal 400 14px/16px Inter,Roboto,sans-serif;
+    overflow-x: hidden;
+}
+.dialog{
+    padding: 0 20px;
+    &__title{
+        margin-bottom: 16px;
+    }
+    &__nav{
+        display: flex;
+        margin-bottom: 24px;
+        margin-top: 16px;
+        align-items: center;
+    }
+    &__more-tools{
+        margin-left: auto;
+        color: #18A0FB;
+        padding: 8px 12px;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 14px;
+        &:hover, &:focus{
+            color: #2680EB;
+        }
+    }
+    &__body{
+        display: flex;
+    }
+    &__sidebar{
+        min-width: 160px;
+    }
+    &__content{
+        flex: 1 1 auto;
+        margin-left: 24px;
+        margin-top: -12px;
+        .tabs-nav{
+            margin-bottom: 24px;
+        }
+    }
+    &__section{
+        margin-bottom: 24px;
+        .range-slider{
+            margin-bottom: 16px;
+        }
+    }
+    &__section-title{
+        display: block;
+        padding-bottom: 8px;
+        margin-left: 0px;
+    }
+    &__footer{
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+

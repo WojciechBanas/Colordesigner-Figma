@@ -1,0 +1,32 @@
+.btn{
+    cursor: pointer;
+    height: 40px;
+    border-radius: 6px;
+    background: #18A0FB;
+    font-size: 14px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 0 10px;
+    &:hover, &:focus, &:active{
+        outline: 0;
+    }
+}
+.btn{
+    &--link{
+        color: #18A0FB;
+        background: none;
+    }
+}
+.btn{
+    &--sm{
+        height: 40px;
+        font-size: 12px;
+    }
+    &--block{
+        display: flex;
+        width: 100%;
+    }
+}

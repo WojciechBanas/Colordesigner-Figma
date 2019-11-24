@@ -1,0 +1,15 @@
+.color-swatches{
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    &__item{
+        width: 70px;
+        height: 70px;
+        min-width: 70px;
+        cursor: pointer;
+        &:hover, &:focus{
+            z-index: 10;
+            position: relative;
+        }
+    }
+}

@@ -1,0 +1,67 @@
+.color-palette{
+    top: 24px;
+    &__active-color{
+        height: 160px;
+        width: 160px;
+        background: #18181A;
+        border-radius: 4px;
+    }
+    &__color-list{
+        display: flex;
+        margin-top: 4px;
+        flex-wrap: wrap;
+        margin-left: -4px;
+        margin-right: -4px;
+        width: 160px;
+    }
+    &__tabs{
+        margin-top: 8px;
+        display: flex;
+        justify-content: center;
+    }
+    &__color{
+        background: #18181A;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        border-radius: 2px;
+        margin: 4px;
+    }
+    &__no-data{
+        margin-top: 8px;
+        color: rgba(0,0,0,0.5);
+        font-size: 13px;
+        text-align: center;
+    }
+    &__input{
+        input{
+            margin: 0;
+        }
+    }
+    &__actions{
+        margin-top: 16px;
+        .btn{
+            + .btn{
+                margin-top: 16px;
+            }
+        }
+    }
+    &__stock-promo{
+        width: 100%;
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        margin-top: 16px;
+        color: #707070;
+        &:hover{
+            text-decoration: none
+        }
+        .label{
+            font-size: 12px;
+            max-width: 100px;
+            width: 100%;
+            margin: 8px auto
+        }
+    }
+}
+

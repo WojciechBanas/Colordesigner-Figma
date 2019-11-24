@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="9.494" height="11.617" viewBox="0 0 9.494 11.617">
+    <defs>
+        <style>
+            .a {
+                fill: none;
+                stroke: #2680eb;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+        </style>
+    </defs>
+    <g transform="translate(-3.5 -1.5)">
+        <path class="a"
+            d="M10.37,4h1.062a1.062,1.062,0,0,1,1.062,1.062v7.432a1.062,1.062,0,0,1-1.062,1.062H5.062A1.062,1.062,0,0,1,4,12.494V5.062A1.062,1.062,0,0,1,5.062,4H6.123"
+            transform="translate(0 -0.938)" />
+        <rect class="a" width="4.247" height="2.123" rx="1" transform="translate(6.123 2)" />
+    </g>
+</svg>

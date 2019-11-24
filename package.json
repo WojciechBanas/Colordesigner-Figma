@@ -1,0 +1,45 @@
+{
+    "name": "ColorDesiginer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "webpack.config.js",
+    "scripts": {
+        "dev": "webpack --config webpack.config.js --mode development --watch",
+        "build": "webpack --config webpack.config.js --mode production",
+        "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+        "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+        "@babel/preset-env": "^7.5.5",
+        "babel-loader": "^8.0.6",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "copy-webpack-plugin": "^5.0.4",
+        "css-loader": "^3.2.0",
+        "eslint": "^6.2.2",
+        "eslint-config-prettier": "^6.1.0",
+        "eslint-plugin-prettier": "^3.1.0",
+        "eslint-plugin-vue": "^5.2.3",
+        "friendly-errors-webpack-plugin": "^1.7.0",
+        "html-webpack-inline-source-plugin": "0.0.10",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^7.3.1",
+        "style-loader": "^1.0.0",
+        "vue-loader": "^15.7.1",
+        "vue-template-compiler": "^2.6.10",
+        "webpack": "^4.39.2",
+        "webpack-cli": "^3.3.7"
+    },
+    "dependencies": {
+        "chroma-js": "^2.0.4",
+        "element-ui": "^2.11.1",
+        "html-webpack-plugin": "^3.2.0",
+        "lodash": "^4.17.15",
+        "spectra": "^0.2.3",
+        "vue": "^2.6.10",
+        "vuex": "^3.1.1"
+    }
+}
