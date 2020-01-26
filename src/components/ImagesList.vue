@@ -146,7 +146,7 @@ export default {
             this.getImages()
         },
         openAdobeStock(){
-            shell.openExternal('https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(AdobeXD)epi2(error)url(https://stock.adobe.com)')
+            shell.openExternal('https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(Figma)epi2(error)url(https://stock.adobe.com)')
         },
         removeImages() {
             this.loadedImages = 0

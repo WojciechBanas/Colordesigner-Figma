@@ -158,7 +158,7 @@ export default {
         },
         openAdobeStock() {
             shell.openExternal(
-                'https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(AdobeXd)epi2(error)url(https://stock.adobe.com)'
+                'https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(Figma)epi2(error)url(https://stock.adobe.com)'
             )
         },
         removeImages() {
