@@ -19,14 +19,14 @@
                                 <div class="dialog__section">
                                     <h2 class="dialog__section-title">Tints</h2>
                                     <RangeSlider :min="1" :max="40" :start="15" @update="updateTintsValue" />
-                                    <ColorList :colors="tints" @colorSelect="selectColor" />
+                                    <ColorList :colors="tints" @colorSelect="selectColor" @showImages="openImagesList" />
                                 </div>
                             </tab>
                             <tab name="shades">
                                 <div class="dialog__section">
                                     <h2 class="dialog__section-title">Shades</h2>
                                     <RangeSlider :min="1" :max="40" :start="15" @update="updateShadesValue" />
-                                    <ColorList :colors="shades" @colorSelect="selectColor" />
+                                    <ColorList :colors="shades" @colorSelect="selectColor" @showImages="openImagesList" />
                                 </div>
                             </tab>
                             <tab name="color-harmonies">
@@ -35,22 +35,22 @@
                                     <TabsNav size="sm" :tabsList="colorHarmoniesTabs" @tabChange="handleColorHarmoniesTabChange" :activeTab="activeColorHarmoniesTab"></TabsNav>
                                     <tabs :activeTab="activeColorHarmoniesTab">
                                         <tab name="complementary">
-                                            <ColorList :colors="colorHarmonies.complementary" @colorSelect="selectColor"/>
+                                            <ColorList :colors="colorHarmonies.complementary" @colorSelect="selectColor" @showImages="openImagesList"/>
                                         </tab>
                                         <tab name="analogous">
-                                            <ColorList :colors="colorHarmonies.analogous" @colorSelect="selectColor"/>
+                                            <ColorList :colors="colorHarmonies.analogous" @colorSelect="selectColor" @showImages="openImagesList"/>
                                         </tab>
                                         <tab name="split-complementary">
-                                            <ColorList :colors="colorHarmonies.splitComplementary" @colorSelect="selectColor"/>
+                                            <ColorList :colors="colorHarmonies.splitComplementary" @colorSelect="selectColor" @showImages="openImagesList"/>
                                         </tab>
                                         <tab name="triad">
-                                            <ColorList :colors="colorHarmonies.triad" @colorSelect="selectColor"/>
+                                            <ColorList :colors="colorHarmonies.triad" @colorSelect="selectColor" @showImages="openImagesList"/>
                                         </tab>
                                         <tab  name="square">
-                                            <ColorList :colors="colorHarmonies.square" @colorSelect="selectColor"/>
+                                            <ColorList :colors="colorHarmonies.square" @colorSelect="selectColor" @showImages="openImagesList"/>
                                         </tab>
                                         <tab name="rectangle">
-                                            <ColorList :colors="colorHarmonies.rectangle" @colorSelect="selectColor"/>
+                                            <ColorList :colors="colorHarmonies.rectangle" @colorSelect="selectColor" @showImages="openImagesList"/>
                                         </tab>
                                     </tabs>
                                 </div>
@@ -83,11 +83,15 @@
                             </tab>
                         </tabs>
                     </tab>
+                    <tab name="images">
+                        <ImagesList></ImagesList>
+                    </tab>
                 </tabs>
             </div>
         </div>
         <footer class="dialog__footer">
         </footer>
+        <ImagesListModal :visible="imagesListModal" :color="imagesListModalColor" @hide="imagesListModal = false"/>
         <Modal :open="addToAssetsModal" @hide="addToAssetsModal = false">
             <div class="color-info">
                 <div class="color-info__color" :style="'background:' + selectedColor">
@@ -116,6 +120,8 @@ import ColorList from './components/ColorList.vue'
 import RangeSlider from './components/RangeSlider.vue'
 import Modal from './components/Modal.vue'
 import ColorSwatches from './components/ColorSwatches.vue'
+import ImagesList from './components/ImagesList.vue'
+import ImagesListModal from './components/ImagesListModal.vue'
 
 import {getTints, getShades, getColorHarmonies} from './utils/color-utils.js'
 import swatches from './utils/swatches.js'
@@ -131,6 +137,8 @@ export default{
             colorHarmonies: [],
             addToAssetsModal: false,
             selectedColor: '#000000',
+            imagesListModal: false,
+            imagesListModalColor: '#000000',
             selectedColorName: ''
         }
     },
@@ -142,7 +150,9 @@ export default{
         TabsNav,
         Tabs,
         Tab,
-        ColorSwatches
+        ColorSwatches,
+        ImagesList,
+        ImagesListModal
     },
     computed: {
         ...mapState(['colors', 'activeColorIndex']),
@@ -173,6 +183,10 @@ export default{
             this.addToAssetsModal = true
             this.selectedColor = color
             this.selectedColorName = color
+        },
+        openImagesList(color) {
+            this.imagesListModal = true
+            this.imagesListModalColor = color
         },
         addColorToAssets(){
             this.addToAssetsModal = false

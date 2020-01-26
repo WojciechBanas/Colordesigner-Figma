@@ -30,3 +30,55 @@
         display: block;
     }
 }
+
+
+.modal{
+    &--images-list{
+        .modal__title{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            font-size: 24px;
+            a{
+                display: inline-block;
+                font-weight: 400;
+                margin-left: 8px;
+                text-decoration: none;
+                padding: 0 8px;
+            }
+        }
+        .modal__dialog{
+            max-width: 720px;
+            max-height: 600px;
+        }
+        .modal__content{
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            max-height: 100%;
+        }
+        .tabs-nav{
+            margin-bottom: 20px;
+            justify-items: center;
+            justify-content: center;
+            margin: 24px auto;
+        }
+        .images-list{
+            margin: 0 auto;
+            width: 100%;
+            &__search{
+                margin-top: 0;
+            }
+            &__list {
+                height: 420px;
+                width: 100%;
+            }
+        }
+        .modal__close{
+            margin-top: 24px;
+        }
+    }
+}

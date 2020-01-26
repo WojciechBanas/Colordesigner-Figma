@@ -1,5 +1,19 @@
 <template>
     <div ref="imagesList" class="images-list">
+        <a
+        class="images-list__banner"
+            href="https://clk.tradedoubler.com/click?p=264338&a=3096280&g=22903366"
+            target="_BLANK"
+        >
+            <img
+                src="https://imppl.tradedoubler.com/imp?type(img)g(22903366)a(3096280)"
+                border="0"
+            />
+        </a>
+        <div class="images-list__search">
+            <input class="form-control" v-model="activePhrase" @keyup.enter="getImages" />
+            <button class="btn btn--block" @click="getImages">Search</button>
+        </div>
         <div class="images-list__nav">
             <TabsNav
                 :tabsList="tabs"
@@ -7,43 +21,47 @@
                 :activeTab="activePhrase"
             ></TabsNav>
         </div>
-        <div class="images-list__list" v-if="!isLoading && !isError">
+        <div class="images-list__loader" v-show="isLoading">Loading...</div>
+        <div class="images-list__error" v-show="isError">
+            <h1 class="images-list__error-title">Oops! something went wrong</h1>
+            <p class="images-list__error-desc">You can try to use the Adobe Stock search</p>
+            <div class="images-list__error-actions">
+                <button class="btn" @click="openAdobeStock">Open Adobe Stock</button>
+                <button class="btn btn--link" @click="getImages"> Try Again</button>
+            </div>
+        </div>
+        <div class="images-list__list"
+        :style="{
+            opacity: isLoading ? '0' : '1'
+        }"
+        >
             <a
                 class="images-list__image"
                 :href="getAffilateURL(image)"
                 v-for="(image, index) in activeImages"
                 :key="index"
                 target="_blank"
-            ><img :src="image.thumbnail_url" />
+            >
+                <img :src="image.thumbnail_url" @load="loadedImages++" />
             </a>
-        </div>
-        <div class="images-list__loader" v-if="isLoading">Loading...</div>
-        <div class="images-list__error" v-if="isError">
-            <h1 class="images-list__error-title">Oops! something went wrong</h1>
-            <p class="images-list__error-desc">You can try to use the Adobe Stock search</p>
-            <div class="images-list__error-actions">
-                <button class="btn" @click="openAdobeStock">Open Adobe Stock</button>
-                <button uxp-quiet="true" @click="getImages"> Try Again</button>
-            </div>
         </div>
     </div>
 </template>
 <script>
 import {mapState, mapMutations, mapGetters} from 'vuex'
-import {getAffilateURL} from './../utils/stock-utils'
+import { getAffilateURL } from './../utils/stock-utils'
 import TabsNav from './tabs/TabsNav.vue'
 import chroma from 'chroma-js'
 export default {
     data() {
         return {
             activePhrase: 'background',
-            watcher: null,
             isLoading: false,
-            blockRequest: true,
             isError: false,
-            lazyLoading: false,
             activeImages: [],
             color: '#000000',
+            loadedImages: 0,
+            imagesToLoad: 1000,
             tabs: [
                 {
                     label: 'Background',
@@ -89,9 +107,8 @@ export default {
                 this.activeImages = this.cachedImages[this.activePhrase]
                 return
             }
-            if (this.watcher && !this.watcher.isInViewport) {
-                return
-            }
+            this.loadedImages = 0
+            this.imagesToLoad = 1000
             this.isLoading = true
             const color = chroma(this.activeColor.hex).hex().substring(1)
             let images = null
@@ -101,18 +118,24 @@ export default {
                 )
                 const images = await response.json()
                 if (images) {
-                    this.activeImages = images.files
+                    if (images.files.status === 'error' || !images.files.length) {
+                        this.isError = true
+                        this.isLoading = false
+                        this.removeImages()
+                    } else {
+                        this.imagesToLoad = images.files.length
+                        this.activeImages = images.files
+                        this.cacheImages({
+                            phrase: this.activePhrase,
+                            images: this.activeImages
+                        })
+                    }
                 }
-                this.cacheImages({
-                    phrase: this.activePhrase,
-                    images: this.activeImages
-                })
             } catch (err) {
                 this.isError = true
+                this.isLoading = false
                 this.removeCachedImages()
             }
-
-            this.isLoading = false
         },
         getAffilateURL(image) {
             const stockURL = `https://stock.adobe.com/${image.id}`
@@ -120,9 +143,16 @@ export default {
         },
         handleTabChange(phrase) {
             this.activePhrase = phrase
+            this.getImages()
         },
         openAdobeStock(){
-            shell.openExternal('https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(AdobeXd)epi2(error)url(https://stock.adobe.com)')
+            shell.openExternal('https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(AdobeXD)epi2(error)url(https://stock.adobe.com)')
+        },
+        removeImages() {
+            this.loadedImages = 0
+            this.imagesToLoad = 1000
+            this.cachedImages = {}
+            this.activeImages = []
         },
         ...mapMutations(['cacheImages', 'removeCachedImages'])
     },
@@ -131,12 +161,13 @@ export default {
             this.removeCachedImages()
             this.getImages()
         },
-        activePhrase() {
-            this.getImages()
-        },
         colors() {
             this.removeCachedImages()
-            this.lazyLoading = true
+        },
+        loadedImages() {
+            if (this.loadedImages >= this.imagesToLoad / 2) {
+                this.isLoading = false
+            }
         }
     }
 }

@@ -11,10 +11,14 @@
 @import 'color-list';
 @import 'modal';
 
+* {
+    box-sizing: border-box;
+}
 body{
     font: normal 400 14px/16px Inter,Roboto,sans-serif;
     overflow-x: hidden;
 }
+
 .dialog{
     padding: 0 20px;
     &__title{

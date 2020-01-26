@@ -10,6 +10,10 @@ export default {
                 {
                     label: 'Color Picker',
                     name: 'color-picker'
+                },
+                {
+                    label: 'Images ★',
+                    name: 'images'
                 }
             ],
             activeShadesTab: 'tints',

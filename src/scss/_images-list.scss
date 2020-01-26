@@ -1,32 +1,67 @@
 .images-list {
-    overflow: auto;
-    max-height: 100%;
+
+    &__banner{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+    }
     &__list {
         display: flex;
         flex-wrap: wrap;
-        overflow:  auto;
-        padding: 0 8px;
-        margin-left: -8px;
-        margin-right: -8px;
+        max-width: 100%;
     }
     &__image {
-        min-width: 50%;
-        width: 50%;
+        width: 49%;
+        min-width: 49%;
+        width: 49%;
         height: 200px;
         padding: 5px;
         img {
             height: 100%;
             object-fit: cover;
             max-width: 100%;
+            width: 100%;
+            display: block;
+        }
+    }
+    &__search{
+        display: flex;
+        justify-content: center;
+        input{
+            width: 250px;
+        }
+        button{
+            margin-left: 16px;
+            width: 100px;
         }
     }
     &__nav{
+    }
+    .tabs-nav{
+        margin-top: 16px;
+        justify-content: center;
+        &__item{
+            color: #707070;
+            &.is-active{
+                .tabs-nav__item-inner{
+                    border: none !important;
+                }
+            }
+        }
+    }
+    &__stock-promo{
+        font-size: 12px;
+        .label{
+            display: block;
+            width: 100px;
+            margin: 0 auto;
+        }
     }
     &__error{
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 485px;
+        height: 250px;
     }
     &__loader{
         color: #2680EB;

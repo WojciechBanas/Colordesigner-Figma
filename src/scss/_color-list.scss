@@ -9,10 +9,42 @@
         margin-top: 16px;
         padding: 0 8px;
         height: 100px;
-        max-width: 20%;
-        width: 20%;
+        max-width: 25%;
+        width: 25%;
         flex: 1 0 auto;
         cursor: pointer;
+    }
+    &__actions{
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        justify-content: center;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.6);
+        opacity: 0;
+        z-index: 20;
+        &:hover{
+            opacity: 1;
+        }
+    }
+    &__action{
+        height: 36px;
+        width: 36px;
+        min-width: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            height: 24px;
+            width: 24px;
+            min-width: 24px;
+            display: block;
+            pointer-events: none;
+        }
     }
     &__color{
         height: 100px;
