@@ -37,7 +37,7 @@
         "chroma-js": "^2.0.4",
         "element-ui": "^2.11.1",
         "html-webpack-plugin": "^3.2.0",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.21",
         "spectra": "^0.2.3",
         "vue": "^2.6.10",
         "vuex": "^3.1.1"
