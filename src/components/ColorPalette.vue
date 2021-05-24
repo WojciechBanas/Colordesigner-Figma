@@ -14,7 +14,7 @@
 <script>
 import {mapState, mapMutations, mapGetters} from 'vuex'
 import Tabs from './tabs/Tabs.vue'
-import Tab from './tabs/tab.vue'
+import Tab from './tabs/Tab.vue'
 import chroma from 'chroma-js'
 import TabsNav from './tabs/TabsNav.vue'
 

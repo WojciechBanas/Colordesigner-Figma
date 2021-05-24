@@ -112,7 +112,7 @@
 import {mapState, mapMutations, mapGetters} from 'vuex'
 import TabsNav from './components/tabs/TabsNav.vue'
 import Tabs from './components/tabs/Tabs.vue'
-import Tab from './components/tabs/tab.vue'
+import Tab from './components/tabs/Tab.vue'
 import tabsMixin from './tabs.js'
 
 import ColorPalette from './components/ColorPalette.vue'
