@@ -12,6 +12,10 @@ export default {
                     name: 'color-picker'
                 },
                 {
+                    label: 'Gradient Generator',
+                    name: 'gradient-generator'
+                },
+                {
                     label: 'Images ★',
                     name: 'images'
                 }

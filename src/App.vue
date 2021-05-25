@@ -83,6 +83,9 @@
                             </tab>
                         </tabs>
                     </tab>
+                    <tab name="gradient-generator">
+                        <GradientGenerator @openImagesList="openImagesList" @selectColor="selectColor"></GradientGenerator>
+                    </tab>
                     <tab name="images">
                         <ImagesList></ImagesList>
                     </tab>
@@ -116,6 +119,7 @@ import Tab from './components/tabs/Tab.vue'
 import tabsMixin from './tabs.js'
 
 import ColorPalette from './components/ColorPalette.vue'
+import GradientGenerator from './components/GradientGenerator.vue'
 import ColorList from './components/ColorList.vue'
 import RangeSlider from './components/RangeSlider.vue'
 import Modal from './components/Modal.vue'
@@ -125,7 +129,6 @@ import ImagesListModal from './components/ImagesListModal.vue'
 
 import {getTints, getShades, getColorHarmonies} from './utils/color-utils.js'
 import swatches from './utils/swatches.js'
-
 export default{
     data() {
         return {
@@ -145,6 +148,7 @@ export default{
     components:{
         ColorPalette,
         ColorList,
+        GradientGenerator,
         RangeSlider,
         Modal,
         TabsNav,

@@ -12,13 +12,17 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist/'),
+        filename: '[name].js',
         publicPath: 'dist'
+    },
+    devServer: {
+        writeToDisk: true,
+        quiet: true,
+        hot: false,
+        liveReload: false,
     },
     mode: 'development',
     devtool: 'inline-source-map',
-    devServer: {
-        quiet: true
-    },
     module: {
         rules: [
             {
@@ -53,7 +57,8 @@ module.exports = {
             filename: 'ui.html',
             inlineSource: '.(js)$',
             chunks: ['ui'],
-            inject: 'body'
+            inject: 'body',
+            cache: false
         }),
         new HtmlInlineScriptPlugin([
             /ui.js$/

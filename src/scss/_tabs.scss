@@ -12,6 +12,10 @@
         cursor: pointer;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.3);
+        transition: 0.3s color;
+        &:hover{
+            color: rgba(0, 0, 0, 0.6);
+        }
         &.is-active{
             color: #000;
             .tabs-nav__item-inner{
