@@ -92,5 +92,5 @@ figma.on(
             name: 'colorsFromSelectedLayers',
             data: getColorsFromSelectedLayers()
         })
-    }, 1000)
+    }, 600)
 )

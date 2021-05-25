@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 24px;
     &__colors{
         display: flex;
         align-items: center;
@@ -38,19 +39,11 @@
     &__picker-tringle{
         display: none;
         position: absolute;
-        bottom: -17px; 
+        bottom: -17px;
         width: 16px;
         left: calc(50% - 8px);
         path{
-            @media (prefers-color-scheme: dark){
-                fill: #323232;
-            }
-            @media (prefers-color-scheme: darkest) {
-                fill: #1B1B1B;
-            }
-            @media (prefers-color-scheme: light), (prefers-color-scheme: lightest) {
-                fill: #F5F5F5;
-            }
+            fill: #F5F5F5;
         }
     }
     &__edit-icon{
@@ -76,13 +69,7 @@
         }
         &:hover, &:focus, &:active{
             svg{
-                @media (prefers-color-scheme: dark), (prefers-color-scheme: darkest) {
-                    color: #fff;
-                }
-                
-                @media (prefers-color-scheme: light), (prefers-color-scheme: lightest) {
-                    color: #323232;
-                }
+                color: #323232;
             }
         }
     }
@@ -92,13 +79,7 @@
         }
         path, line{
             fill: none;
-            @media (prefers-color-scheme: dark), (prefers-color-scheme: darkest) {
-                stroke: #fff;
-            }
-            
-            @media (prefers-color-scheme: light), (prefers-color-scheme: lightest) {
-                stroke: #323232;
-            }
+            stroke: #323232;
             stroke-linecap: round;
             stroke-linejoin: round;
             stroke-width: 4px;
@@ -117,13 +98,7 @@
         }
     }
     &__mode{
-        @media (prefers-color-scheme: dark), (prefers-color-scheme: darkest) {
-            color: #fff;
-        }
-        
-        @media (prefers-color-scheme: light), (prefers-color-scheme: lightest) {
-            color: #323232;
-        }
+        color: #323232;
         min-width: 50%;
         select{
             display: block;
@@ -136,15 +111,7 @@
         max-width: 440px;
         width: 100%;
         position: relative;
-        @media (prefers-color-scheme: dark){
-            background: #323232;
-        }
-        @media (prefers-color-scheme: darkest) {
-            background: #1B1B1B;
-        }
-        @media (prefers-color-scheme: light), (prefers-color-scheme: lightest) {
-            background: #F5F5F5;
-        }
+        background: #F5F5F5;
         padding: 20px;
         .tabs-nav{
             margin-top: -16px;
@@ -164,13 +131,7 @@
     }
     &__mode{
         h2{
-            @media (prefers-color-scheme: dark), (prefers-color-scheme: darkest) {
-                color: #fff;
-            }
-            
-            @media (prefers-color-scheme: light), (prefers-color-scheme: lightest) {
-                color: #323232;
-            }
+            color: #323232;
         }
     }
 }

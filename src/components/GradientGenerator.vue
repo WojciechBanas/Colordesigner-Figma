@@ -28,18 +28,8 @@
                         viewBox="0 0 45.657 45.657"
                     >
                         <g transform="translate(-3.172 -3.172)">
-                            <line
-
-                                x1="40"
-                                y2="40"
-                                transform="translate(6 6)"
-                            />
-                            <line
-
-                                x2="40"
-                                y2="40"
-                                transform="translate(6 6)"
-                            />
+                            <line x1="40" y2="40" transform="translate(6 6)" />
+                            <line x2="40" y2="40" transform="translate(6 6)" />
                         </g>
                     </svg>
                     <svg
@@ -50,51 +40,15 @@
                         viewBox="0 0 52 43"
                     >
                         <g transform="translate(1 -1)">
-                            <line
-
-                                y1="15"
-                                transform="translate(8 27)"
-                            />
-                            <line
-
-                                y1="15"
-                                transform="translate(8 3)"
-                            />
-                            <line
-
-                                y1="19"
-                                transform="translate(25 23)"
-                            />
-                            <line
-
-                                y1="11"
-                                transform="translate(25 3)"
-                            />
-                            <line
-
-                                y1="11"
-                                transform="translate(42 31)"
-                            />
-                            <line
-
-                                y1="20"
-                                transform="translate(42 3)"
-                            />
-                            <line
-
-                                x2="13"
-                                transform="translate(1 27)"
-                            />
-                            <line
-
-                                x2="13"
-                                transform="translate(18 14)"
-                            />
-                            <line
-
-                                x2="13"
-                                transform="translate(36 31)"
-                            />
+                            <line y1="15" transform="translate(8 27)" />
+                            <line y1="15" transform="translate(8 3)" />
+                            <line y1="19" transform="translate(25 23)" />
+                            <line y1="11" transform="translate(25 3)" />
+                            <line y1="11" transform="translate(42 31)" />
+                            <line y1="20" transform="translate(42 3)" />
+                            <line x2="13" transform="translate(1 27)" />
+                            <line x2="13" transform="translate(18 14)" />
+                            <line x2="13" transform="translate(36 31)" />
                         </g>
                     </svg>
                 </div>
@@ -152,18 +106,8 @@
                         viewBox="0 0 45.657 45.657"
                     >
                         <g transform="translate(-3.172 -3.172)">
-                            <line
-
-                                x1="40"
-                                y2="40"
-                                transform="translate(6 6)"
-                            />
-                            <line
-
-                                x2="40"
-                                y2="40"
-                                transform="translate(6 6)"
-                            />
+                            <line x1="40" y2="40" transform="translate(6 6)" />
+                            <line x2="40" y2="40" transform="translate(6 6)" />
                         </g>
                     </svg>
                     <svg
@@ -174,51 +118,15 @@
                         viewBox="0 0 52 43"
                     >
                         <g transform="translate(1 -1)">
-                            <line
-
-                                y1="15"
-                                transform="translate(8 27)"
-                            />
-                            <line
-
-                                y1="15"
-                                transform="translate(8 3)"
-                            />
-                            <line
-
-                                y1="19"
-                                transform="translate(25 23)"
-                            />
-                            <line
-
-                                y1="11"
-                                transform="translate(25 3)"
-                            />
-                            <line
-
-                                y1="11"
-                                transform="translate(42 31)"
-                            />
-                            <line
-
-                                y1="20"
-                                transform="translate(42 3)"
-                            />
-                            <line
-
-                                x2="13"
-                                transform="translate(1 27)"
-                            />
-                            <line
-
-                                x2="13"
-                                transform="translate(18 14)"
-                            />
-                            <line
-
-                                x2="13"
-                                transform="translate(36 31)"
-                            />
+                            <line y1="15" transform="translate(8 27)" />
+                            <line y1="15" transform="translate(8 3)" />
+                            <line y1="19" transform="translate(25 23)" />
+                            <line y1="11" transform="translate(25 3)" />
+                            <line y1="11" transform="translate(42 31)" />
+                            <line y1="20" transform="translate(42 3)" />
+                            <line x2="13" transform="translate(1 27)" />
+                            <line x2="13" transform="translate(18 14)" />
+                            <line x2="13" transform="translate(36 31)" />
                         </g>
                     </svg>
                 </div>
@@ -231,48 +139,23 @@
                     size="sm"
                     @tabChange="handleColorSourceTabChange"
                     :activeTab="activeColorSourceTab"
-                ></TabsNav
-                ><tabs :activeTab="activeColorSourceTab">
-                    <tab name="selected-layer">
-                        <div class="color-palette__color-list">
-                            <div
-                                v-for="(color, index) of colorsFromSelection"
-                                :key="index"
-                                class="color-palette__color"
-                                :style="'background:' + color.value"
-                                @click="setColor(color.value)"
-                                :title="color.name"
-                            />
-                        </div>
-                        <div class="color-palette__no-data" v-if="noSelection">
-                            <h4 class="color-palette__no-data-title">
-                                No Colors
-                            </h4>
-                            <p class="color-palette__no-data-desc">
-                                Try to select layers
-                            </p>
-                        </div>
-                    </tab>
-                    <tab name="color-picker">
-                        <div
-                            v-for="(color, index) of colorPickerColors"
-                            :key="index"
-                            class="color-palette__color-container"
-                        >
-                            <div
-                                class="color-palette__container-overlayer"
-                                @click="setColor(color.value)"
-                            ></div>
-                            <div
-                                class="color-palette__color"
-                                :style="'background:' + color.value"
-                            ></div>
-                            <div class="color-palette__color-name">
-                                {{ color.name }}
-                            </div>
-                        </div>
-                    </tab>
-                </tabs>
+                ></TabsNav>
+                <div class="color-palette__color-list">
+                    <div
+                        v-for="(color, index) of colors"
+                        :key="index"
+                        class="color-palette__color"
+                        :style="'background:' + color.value"
+                        @click="setColor(color.value)"
+                        :title="color.name"
+                    />
+                </div>
+                <div class="color-palette__no-data" v-if="noSelection">
+                    <h4 class="color-palette__no-data-title">No Colors</h4>
+                    <p class="color-palette__no-data-desc">
+                        Try to select layers
+                    </p>
+                </div>
             </div>
         </div>
         <div class="gradient-generator__options">
@@ -299,7 +182,7 @@
         </div>
         <ColorList
             class="gradient-generator__color-list"
-            :colors="colors"
+            :colors="resultColros"
             @colorSelect="selectColor"
             @showImages="openImagesList"
         />
@@ -330,7 +213,7 @@ export default {
     },
     data() {
         return {
-            colors: [],
+            resultColros: [],
             colorValue: 15,
             scaleMode: 'lch',
             firstColor: '#fafa6e',
@@ -340,13 +223,7 @@ export default {
         }
     },
     computed: {
-        ...mapState([
-            'colorsFromSelection',
-            'colorPickerColors',
-            'activeColorIndex',
-            'activeColor',
-            'noSelection',
-        ]),
+        ...mapState(['colors', 'activeColorIndex', 'noSelection']),
         ...mapGetters(['activeColor']),
         activeColor: {
             set(value) {
@@ -376,7 +253,7 @@ export default {
     },
     methods: {
         generateGradient() {
-            this.colors = chroma
+            this.resultColros = chroma
                 .scale([this.firstColor, this.secondColor])
                 .mode(this.scaleMode)
                 .colors(this.colorValue)
