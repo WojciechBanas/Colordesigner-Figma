@@ -37,8 +37,8 @@
                                     <RangeSlider
                                         :min="1"
                                         :max="40"
-                                        :start="15"
-                                        @update="updateTintsValue"
+                                        :start="8"
+                                        @update="updateTintsCounter"
                                     />
                                     <ColorList
                                         :colors="tints"
@@ -55,8 +55,8 @@
                                     <RangeSlider
                                         :min="1"
                                         :max="40"
-                                        :start="15"
-                                        @update="updateShadesValue"
+                                        :start="8"
+                                        @update="updateShadesCounter"
                                     />
                                     <ColorList
                                         :colors="shades"
@@ -230,6 +230,16 @@
                 </div>
             </div>
         </Modal>
+        <Modal :open="open" class="modal--images-list" @hide="hide">
+            <h1 class="modal__title">
+                Search Images
+            </h1>
+            <div class="modal__content">
+            </div>
+            <button class="btn modal__close" @click="open = false">
+                Close
+            </button>
+        </Modal>
     </div>
 </template>
 <script>
@@ -254,10 +264,10 @@ export default {
     data() {
         return {
             tints: [],
-            tintsValue: 15,
+            tintsCounter: 8,
             shades: [],
             swatches,
-            shadesValue: 15,
+            shadesCounter: 8,
             colorHarmonies: [],
             addToAssetsModal: false,
             selectedColor: '#000000',
@@ -290,19 +300,19 @@ export default {
     },
     methods: {
         generateTints() {
-            this.tints = getTints(this.activeColor.hex, this.tintsValue)
+            this.tints = getTints(this.activeColor.hex, this.tintsCounter)
         },
-        updateTintsValue(value) {
-            this.tintsValue = value
+        updateTintsCounter(value) {
+            this.tintsCounter = value
         },
-        generateShades(steps = 15) {
-            this.shades = getShades(this.activeColor.hex, this.shadesValue)
+        generateShades() {
+            this.shades = getShades(this.activeColor.hex, this.shadesCounter)
         },
         generateColorHarmonies() {
             this.colorHarmonies = getColorHarmonies(this.activeColor.hex)
         },
-        updateShadesValue(value) {
-            this.shadesValue = value
+        updateShadesCounter(value) {
+            this.shadesCounter = value
         },
         selectColor(color) {
             this.addToAssetsModal = true
@@ -333,10 +343,10 @@ export default {
             this.generateShades()
             this.generateColorHarmonies()
         },
-        tintsValue() {
+        tintsCounter() {
             this.generateTints()
         },
-        shadesValue() {
+        shadesCounter() {
             this.generateShades()
         },
     },

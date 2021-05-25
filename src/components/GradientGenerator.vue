@@ -159,9 +159,9 @@
             </div>
         </div>
         <div class="gradient-generator__options">
-            <div class="gradient-generator__mode">
+            <div class="gradient-generator__mode form-group">
                 <label class="h3 text-center">Mode:</label>
-                <select @change="changeScaleMode($event)">
+                <select class="form-control" @change="changeScaleMode($event)">
                     <option value="lch">LCH (recommended!)</option>
                     <option value="hsl">HSL</option>
                     <option value="lab">LAB</option>
@@ -169,14 +169,14 @@
                     <option value="lrgb">LRGB</option>
                 </select>
             </div>
-            <div class="gradient-generator__range-container">
+            <div class="gradient-generator__range-container form-group">
                 <label class="h3 text-center">Steps:</label>
                 <RangeSlider
                     class="gradient-generator__range"
                     :min="1"
                     :max="40"
-                    :start="15"
-                    @update="updateColorValue"
+                    :start="8"
+                    @update="updateColorCounter"
                 />
             </div>
         </div>
@@ -214,7 +214,7 @@ export default {
     data() {
         return {
             resultColros: [],
-            colorValue: 15,
+            colorCounter: 8,
             scaleMode: 'lch',
             firstColor: '#fafa6e',
             secondColor: '#2A4858',
@@ -235,7 +235,7 @@ export default {
         },
     },
     watch: {
-        colorValue() {
+        colorCounter() {
             this.generateGradient()
         },
         firstColor() {
@@ -256,10 +256,10 @@ export default {
             this.resultColros = chroma
                 .scale([this.firstColor, this.secondColor])
                 .mode(this.scaleMode)
-                .colors(this.colorValue)
+                .colors(this.colorCounter)
         },
-        updateColorValue(value) {
-            this.colorValue = value
+        updateColorCounter(value) {
+            this.colorCounter = value
         },
         changeScaleMode(event) {
             this.scaleMode = event.target.value
