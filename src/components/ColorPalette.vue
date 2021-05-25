@@ -6,8 +6,7 @@
             <div v-for="(color,index ) of colors" :key="index" class="color-palette__color" :style="'background:' + color.value" @click="changeActiveColor(index)" :title="color.name"/>
         </div>
         <div class="color-palette__actions">
-            <button class="btn btn--sm btn--block" v-if="activeTab == 'selection'"  @click="getColorsFromSelection" >Load Selection</button>
-            <button class="btn btn--link btn--sm btn--block"  @click="showPaletteOnline">View Palette Online</button>
+            <button class="btn btn--sm btn--block"  @click="showPaletteOnline">View Palette Online</button>
         </div>
     </div>
 </template>
@@ -33,8 +32,8 @@ export default {
             notData: "",
             tabs: [
                 {
-                    label: 'Selection',
-                    name: 'selection'
+                    label: 'Selected Layers',
+                    name: 'selected-layers'
                 },
                 {
                     label: 'Local Styles',
@@ -45,7 +44,7 @@ export default {
     },
     mounted() {
         if(this.activeTab == 'selection'){
-            this.getColorsFromSelection()
+            this.getColorsFromSelectedLayers()
         }else{
             this.getColorsFromLibrary()
         }
@@ -64,11 +63,11 @@ export default {
             if(tab === 'local-styles'){
                 this.getColorsFromLibrary()
             }else{
-                this.getColorsFromSelection()
+                this.getColorsFromSelectedLayers()
             }
         },
-        getColorsFromSelection() {
-            parent.postMessage({ pluginMessage: 'getColorFromSelection' }, '*')
+        getColorsFromSelectedLayers() {
+            parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
         },
         getColorsFromLibrary() {
             parent.postMessage({ pluginMessage: 'getColorsFromLibrary' }, '*')
@@ -77,8 +76,8 @@ export default {
             onmessage = (event) => {
                 this.changeActiveColor(0)
                 let colors = []
-                if(event.data && event.data.pluginMessage.length){
-                    for(let color of event.data.pluginMessage){
+                if(event.data.pluginMessage.data && event.data.pluginMessage.data.length){
+                    for(let color of event.data.pluginMessage.data){
                         colors.push({
                             title: color,
                             value: color

@@ -5,10 +5,16 @@ figma.showUI(__html__)
 figma.ui.resize(750, 600)
 
 figma.ui.onmessage = message => {
-    if (message === 'getColorFromSelection') {
-        figma.ui.postMessage(getColorFromSelection())
+    if (message === 'getColorsFromSelectedLayers') {
+        figma.ui.postMessage({
+            name: 'colorsFromSelectedLayers',
+            data: getColorsFromSelectedLayers()
+        })
     } else {
-        figma.ui.postMessage(getColorFromLocalStyles())
+        figma.ui.postMessage({
+            name: 'colorsFromLocalStyles',
+            data: getColorsFromLocalStyles()
+        })
     }
 }
 const allowedNodeTyps = [
@@ -21,13 +27,13 @@ const allowedNodeTyps = [
     'GROUP',
     'FRAME'
 ]
-function getColorFromSelection() {
+function getColorsFromSelectedLayers() {
     const nodes = []
     const colors = []
 
     if (
         !figma.currentPage.selection ||
-        figma.currentPage.selection.length >= 50
+        figma.currentPage.selection.length >= 100
     ) {
         return ['#000000']
     }
@@ -63,7 +69,7 @@ function getColorFromSelection() {
     }
     return colors
 }
-function getColorFromLocalStyles() {
+function getColorsFromLocalStyles() {
     const colors = []
     const styles = figma.getLocalPaintStyles()
 
@@ -82,6 +88,9 @@ function getColorFromLocalStyles() {
 figma.on(
     'selectionchange',
     debounce(() => {
-
+        figma.ui.postMessage({
+            name: 'colorsFromSelectedLayers',
+            data: getColorsFromSelectedLayers()
+        })
     }, 1000)
 )
