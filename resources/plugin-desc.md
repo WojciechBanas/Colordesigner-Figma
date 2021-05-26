@@ -1,13 +1,14 @@
-The plugin generates shades, tints, and color harmonies based on select layers or local styles.
+The plugin generates shades, tints, and color harmonies based on select layers or local styles. You can also create a stepped gradient between two colors.
 
 Main Features:
-Generate tints, shades and color harmonies
+Generate tints, shades, and color harmonies
 The plugin is integrated with user selection and local  styles
+Gradient Generator
 Easy to use
 The plugin support only solid fills.
 
 Note:
-Do Not try to select too much layers. It may freeze Figma.
+Do Not try to select too many layers. It may freeze Figma.
 
 
 https://colordesigner.io/contact

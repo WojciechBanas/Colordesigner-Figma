@@ -44,6 +44,7 @@ export default {
             'activeColorIndex',
             'activeColor',
             'stockPromo',
+            'globalActiveColorSource'
         ]),
         ...mapGetters(['activeColor']),
     },
@@ -69,6 +70,13 @@ export default {
         },
         handleMessage() {
             onmessage = (event) => {
+                if (
+                    event.data.pluginMessage.name ==
+                        'colorsFromSelectedLayers' &&
+                    this.globalActiveColorSource == 'local-styles'
+                ) {
+                    return
+                }
                 this.changeActiveColor(0)
                 let colors = []
                 if (
@@ -92,7 +100,14 @@ export default {
                 this.setColors(colors)
             }
         },
-        ...mapMutations(['changeActiveColor', 'setColors']),
+        ...mapMutations(['changeActiveColor', 'setColors', 'setGlobalActiveColorSource']),
+    },
+    watch:{
+        activeMainTab() {
+            if(this.globalActiveColorSource && this.globalActiveColorSource == 'local-styles') {
+                this.activeColorSourceTab = 'local-styles'
+            }
+        }
     },
     filters: {
         formatColor(color) {

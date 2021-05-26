@@ -143,6 +143,7 @@ export default {
             }else{
                 parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
             }
+            this.setGlobalActiveColorSource(name)
             this.activeColorSourceTab = name
         }
     },

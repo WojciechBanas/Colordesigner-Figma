@@ -34,7 +34,5 @@ export default {
             this.$emit('showImages', color)
         }
     },
-    filters: {
-    }
 }
 </script>

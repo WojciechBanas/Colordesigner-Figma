@@ -347,7 +347,7 @@
                     v-model="textAreaColors"
                     readonly
                     cols="30"
-                    :rows="textareaHeight"
+                    rows="22"
                 />
             </div>
             <div class="modal__action">
@@ -422,13 +422,10 @@ export default {
                 return this.gradientGeneratorColors.map((color) => color + '\n').join('')
             }else{
                 if (this.activeShadesTab == 'tints') {
-                    this.textareaHeight = this.tints.length + 1
                     return this.tints.map((color) => color + '\n').join('')
                 } else if (this.activeShadesTab == 'shades') {
-                    this.textareaHeight = this.shades.length + 1
                     return this.shades.map((color) => color + '\n').join('')
                 } else if (this.activeShadesTab == 'color-harmonies') {
-                    this.textareaHeight = 25
                     let textareaContent = ``
                     for (const [name, colors] of Object.entries(
                         this.colorHarmonies

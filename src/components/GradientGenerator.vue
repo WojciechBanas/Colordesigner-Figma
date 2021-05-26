@@ -135,8 +135,8 @@
         <div v-show="colorPicker" class="gradient-generator__picker">
             <div class="color-palette">
                 <TabsNav
-                    :tabsList="colorSourceTabs"
                     size="sm"
+                    :tabsList="colorSourceTabs"
                     @tabChange="handleColorSourceTabChange"
                     :activeTab="activeColorSourceTab"
                 ></TabsNav>
@@ -253,7 +253,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['colors', 'activeColorIndex', 'noSelection']),
+        ...mapState(['colors', 'activeColorIndex', 'noSelection', 'globalActiveColorSource']),
         ...mapGetters(['activeColor']),
         activeColor: {
             set(value) {
@@ -321,7 +321,8 @@ export default {
         },
         openColorAllColorsModal(){
             this.$emit('openColorAllColorsModal', this.resultColors)
-        }
+        },
+        ...mapMutations(['setGlobalActiveColorSource'])
     },
 }
 </script>
