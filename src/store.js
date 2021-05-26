@@ -13,6 +13,7 @@ const createStore = () => {
             activeColorIndex: 0,
             presentationMode: false,
             stockPromo: false,
+            globalActiveColorSource: 'selected-layers',
             cachedImages: {}
         },
         getters: {
@@ -48,6 +49,9 @@ const createStore = () => {
             removeCachedImages(state){
                 state.cachedImages = {}
             },
+            setGlobalActiveColorSource(state, name) {
+                state.globalActiveColorSource = name
+            }
         }
     })
 }

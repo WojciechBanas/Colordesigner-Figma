@@ -1,0 +1,17 @@
+.icon{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    svg{
+        stroke: rgba(0, 0, 0, 0.3);
+        transition: 0.3s stroke;
+    }
+    &:hover, &:focus, &:active{
+        svg{
+            stroke: rgba(0, 0, 0, 0.6);
+        }
+    }
+}

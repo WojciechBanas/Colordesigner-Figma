@@ -1,68 +1,71 @@
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-module.exports = {
-    entry: {
-        main: './src/main.js',
-        ui: './src/ui.js',
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist/'),
-        publicPath: 'dist'
-    },
-    mode: 'development',
-    devtool: 'inline-source-map',
-    devServer: {
-        quiet: true
-    },
-    module: {
-        rules: [
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
-            },
-            {
-                test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
-                    loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                        },
-                    },
-                ],
-            },
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin')
+module.exports = (env, argv)=>{
+    console.log()
+    return {
+        entry: {
+            main: './src/main.js',
+            ui: './src/ui.js'
+        },
+        output: {
+            path: path.resolve(__dirname, 'dist/'),
+            filename: '[name].js',
+            publicPath: 'dist',
+            clean: true,
+        },
+        devServer: {
+            writeToDisk: true,
+            quiet: true,
+            hot: false,
+            liveReload: false,
+        },
+        mode: argv.mode == 'production' ? 'production' : 'development',
+        devtool: argv.mode == 'production' ? false : 'inline-source-map',
+        module: {
+            rules: [
+                {
+                    test: /\.vue$/,
+                    loader: 'vue-loader'
+                },
+                {
+                    test: /\.scss$/,
+                    use: ['style-loader', 'css-loader', 'sass-loader']
+                },
+                {
+                    test: /\.(png|jpg|gif)$/i,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 8192
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        plugins: [
+            new VueLoaderPlugin(),
+            new FriendlyErrorsWebpackPlugin(),
+            new CopyPlugin({
+                patterns: [{ from: 'static', to: '' }]
+            }),
+            new HtmlWebpackPlugin({
+                template: './src/ui.html',
+                filename: 'ui.html',
+                inlineSource: '.(js)$',
+                chunks: ['ui'],
+                inject: 'body',
+                cache: false
+            }),
+            new HtmlInlineScriptPlugin([
+                /ui.js$/
+            ])
         ]
-    },
-    plugins: [
-        new VueLoaderPlugin(),
-        new FriendlyErrorsWebpackPlugin(),
-        new CopyWebpackPlugin([
-            {
-                from: 'static',
-                to: '.',
-                ignore: ['.*']
-            }
-        ]),
-        new HtmlWebpackPlugin({
-            template: './src/ui.html',
-            filename: 'ui.html',
-            inlineSource: '.(js)$',
-            chunks: ['ui']
-        }),
-        new HtmlWebpackInlineSourcePlugin()
-    ]
+
+    }
 }

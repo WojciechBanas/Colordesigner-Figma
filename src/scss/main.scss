@@ -4,12 +4,14 @@
 @import 'label';
 @import 'color-palette';
 @import 'images-list';
+@import 'icon';
 @import 'color-swatches';
 @import 'color-info';
 @import 'range-slider';
 @import 'forms';
 @import 'color-list';
 @import 'modal';
+@import 'gradient-generator';
 
 * {
     box-sizing: border-box;
@@ -43,6 +45,15 @@ body{
     }
     &__body{
         display: flex;
+    }
+    &__top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__top-action{
+        cursor: pointer;
+        margin-right: 12px;
     }
     &__sidebar{
         min-width: 160px;

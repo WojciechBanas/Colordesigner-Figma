@@ -1,106 +1,119 @@
 <template>
     <div class="color-palette">
-        <div class="color-palette__active-color" :style="'background:' + colors[activeColorIndex].value" />
-        <TabsNav  class="color-palette__tabs" size="sm" :tabsList="tabs"  @tabChange="handleTabChange" :activeTab="activeTab"></TabsNav>
+        <div
+            class="color-palette__active-color"
+            :style="'background:' + colors[activeColorIndex].value"
+        />
+        <TabsNav
+            class="color-palette__tabs"
+            size="sm"
+            :tabsList="colorSourceTabs"
+            @tabChange="handleColorSourceTabChange"
+            :activeTab="activeColorSourceTab"
+        ></TabsNav>
         <div class="color-palette__color-list">
-            <div v-for="(color,index ) of colors" :key="index" class="color-palette__color" :style="'background:' + color.value" @click="changeActiveColor(index)" :title="color.name"/>
+            <div
+                v-for="(color, index) of colors"
+                :key="index"
+                class="color-palette__color"
+                :style="'background:' + color.value"
+                @click="changeActiveColor(index)"
+                :title="color.name"
+            />
         </div>
         <div class="color-palette__actions">
-            <button class="btn btn--sm btn--block" v-if="activeTab == 'selection'"  @click="getColorsFromSelection" >Load Selection</button>
-            <button class="btn btn--link btn--sm btn--block"  @click="showPaletteOnline">View Palette Online</button>
+            <button class="btn btn--sm btn--block" @click="showPaletteOnline">
+                View Palette Online
+            </button>
         </div>
     </div>
 </template>
 <script>
-import {mapState, mapMutations, mapGetters} from 'vuex'
-import Tabs from './tabs/Tabs.vue'
-import Tab from './tabs/tab.vue'
+import { mapState, mapMutations, mapGetters } from 'vuex'
+import tabsMixin from './../tabs.js'
 import chroma from 'chroma-js'
 import TabsNav from './tabs/TabsNav.vue'
 
 export default {
-    components:{
-        TabsNav
+    components: {
+        TabsNav,
     },
     computed: {
-        ...mapState(['colors', 'activeColorIndex', 'activeColor', 'stockPromo']),
-        ...mapGetters(['activeColor'])
+        ...mapState([
+            'colors',
+            'activeColorIndex',
+            'activeColor',
+            'stockPromo',
+            'globalActiveColorSource'
+        ]),
+        ...mapGetters(['activeColor']),
     },
     data() {
         return {
             dialogVisible: false,
-            activeTab: 'selection',
-            notData: "",
-            tabs: [
-                {
-                    label: 'Selection',
-                    name: 'selection'
-                },
-                {
-                    label: 'Local Styles',
-                    name: 'local-styles'
-                }
-            ]
+            notData: '',
         }
     },
     mounted() {
-        if(this.activeTab == 'selection'){
-            this.getColorsFromSelection()
-        }else{
-            this.getColorsFromLibrary()
-        }
         this.handleMessage()
     },
     methods: {
         showPaletteOnline() {
-            let colors = this.colors.map((color)=>{
+            let colors = this.colors.map((color) => {
                 return chroma(color.value).hex().substring(1)
             })
             colors = colors.join('-')
-            window.open(`https://colordesigner.io/?presentationMode=true&from=figma#${colors}`, '_blank');
+            window.open(
+                `https://colordesigner.io/?presentationMode=true&from=figma#${colors}`,
+                '_blank'
+            )
         },
-        handleTabChange(tab) {
-            this.activeTab = tab
-            if(tab === 'local-styles'){
-                this.getColorsFromLibrary()
-            }else{
-                this.getColorsFromSelection()
-            }
-        },
-        getColorsFromSelection() {
-            parent.postMessage({ pluginMessage: 'getColorFromSelection' }, '*')
-        },
-        getColorsFromLibrary() {
-            parent.postMessage({ pluginMessage: 'getColorsFromLibrary' }, '*')
-        },
-        handleMessage(){
+        handleMessage() {
             onmessage = (event) => {
+                if (
+                    event.data.pluginMessage.name ==
+                        'colorsFromSelectedLayers' &&
+                    this.globalActiveColorSource == 'local-styles'
+                ) {
+                    return
+                }
                 this.changeActiveColor(0)
                 let colors = []
-                if(event.data && event.data.pluginMessage.length){
-                    for(let color of event.data.pluginMessage){
+                if (
+                    event.data.pluginMessage.data &&
+                    event.data.pluginMessage.data.length
+                ) {
+                    for (let color of event.data.pluginMessage.data) {
                         colors.push({
                             title: color,
-                            value: color
+                            value: color,
                         })
                     }
-                }else{
+                } else {
                     colors = [
                         {
                             title: '#000000',
-                            value: '#000000'
-                        }
+                            value: '#000000',
+                        },
                     ]
                 }
                 this.setColors(colors)
             }
         },
-        ...mapMutations(['changeActiveColor', 'setColors'])
+        ...mapMutations(['changeActiveColor', 'setColors', 'setGlobalActiveColorSource']),
+    },
+    watch:{
+        activeMainTab() {
+            if(this.globalActiveColorSource && this.globalActiveColorSource == 'local-styles') {
+                this.activeColorSourceTab = 'local-styles'
+            }
+        }
     },
     filters: {
         formatColor(color) {
             return color.match(/[\d,%.]+/)[0]
-        }
-    }
+        },
+    },
+    mixins: [tabsMixin],
 }
 </script>

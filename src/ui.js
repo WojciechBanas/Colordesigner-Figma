@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import App from './app.vue'
+import App from './App.vue'
 import store from './store.js'
 import './scss/main.scss'
 Vue.use(Vuex)

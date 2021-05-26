@@ -1,0 +1,147 @@
+.gradient-generator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    &__colors{
+        display: flex;
+        align-items: center;
+        margin: 0 32px;
+    }
+    img{
+        pointer-events: none;
+    }
+    &__options{
+        margin: 30px auto 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        justify-items: space-between;
+        width: 100%;
+        max-width: 440px;
+    }
+    &__color{
+        width: 170px;
+        height: 140px;
+        cursor: pointer;
+        position: relative;
+        &:hover, &:focus, &:active{
+             .gradient-generator__edit-icon{
+                 visibility: visible;
+             }
+        }
+        &.is-active{
+            .gradient-generator__picker-tringle{
+                display: block;
+            }
+        }
+    }
+    &__picker-tringle{
+        display: none;
+        position: absolute;
+        bottom: -17px;
+        width: 16px;
+        left: calc(50% - 8px);
+        path{
+            fill: #F5F5F5;
+        }
+    }
+    &__edit-icon{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0,0,0,0.5);
+        visibility: hidden;
+        pointer-events: none;
+    }
+    &__invert-colors{
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        margin: 0 24px;
+        svg{
+            stroke: #474748;
+        }
+        &:hover, &:focus, &:active{
+            svg{
+                color: #323232;
+            }
+        }
+    }
+    &__invert-colors{
+        svg{
+            pointer-events: none;
+        }
+        path, line{
+            fill: none;
+            stroke: #323232;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 4px;
+        }
+    }
+    &__edit-icon{
+        svg{
+            pointer-events: none;
+        }
+        path, line{
+            fill: none;
+            stroke: #fff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 4px;
+        }
+    }
+    &__copy-all-colors{
+        margin-top: 17px;
+        margin-left: 28px;
+    }
+    &__mode{
+        color: #323232;
+        min-width: 50%;
+        select{
+            display: block;
+            margin-left: 0;
+            min-width: 90%;
+        }
+    }
+    &__picker{
+        margin-top: 16px;
+        max-width: 440px;
+        width: 100%;
+        position: relative;
+        background: #F5F5F5;
+        padding: 20px;
+        .tabs-nav{
+            margin-top: -16px;
+            margin-bottom: 0 !important;
+        }
+        .color-palette{
+            &__color-list{
+                width: auto;
+            }
+        }
+    }
+    &__range-container{
+        margin: 0;
+        min-width: 50%;
+        .range-slider{
+            &__main{
+                max-width: 155px;
+            }
+        }
+    }
+    &__color-list{
+        width: 100%;
+    }
+    &__mode{
+        h2{
+            color: #323232;
+        }
+    }
+}

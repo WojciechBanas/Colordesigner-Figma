@@ -12,6 +12,10 @@
         cursor: pointer;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.3);
+        transition: 0.3s color;
+        &:hover{
+            color: rgba(0, 0, 0, 0.6);
+        }
         &.is-active{
             color: #000;
             .tabs-nav__item-inner{
@@ -44,10 +48,10 @@
         z-index: 10;
     }
     &--sm{
-        margin-left: -6px;
+        margin-left: -10px;
         .tabs-nav__item{
-            padding: 8px 6px;
-            font-size: 13px;
+            padding: 8px 5px;
+            font-size: 11px;
         }
         .tabs-nav__item-border{
             left: 6px;

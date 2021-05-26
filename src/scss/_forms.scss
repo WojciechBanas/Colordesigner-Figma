@@ -9,7 +9,14 @@
         border-color: #18A0FB;
     }
 }
-
+select.form-control{
+    line-height: 34px;
+    height: 34px;
+}
+textarea.form-control{
+    padding-top: 10px;
+    resize: none;
+}
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
