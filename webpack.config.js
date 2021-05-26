@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyPlugin = require('copy-webpack-plugin')
@@ -13,7 +12,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist/'),
         filename: '[name].js',
-        publicPath: 'dist'
+        publicPath: 'dist',
+        clean: true,
     },
     devServer: {
         writeToDisk: true,

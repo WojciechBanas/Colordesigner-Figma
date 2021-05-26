@@ -33,7 +33,45 @@
                         <tabs :activeTab="activeShadesTab">
                             <tab name="tints">
                                 <div class="dialog__section">
-                                    <h2 class="dialog__section-title">Tints</h2>
+                                    <div class="dialog__top">
+                                        <h2 class="dialog__section-title">
+                                            Tints
+                                        </h2>
+                                        <div
+                                            class="dialog__top-action icon"
+                                            title="Copy All Tints"
+                                            @click="
+                                                openColorAllColorsModal(
+                                                    'shades'
+                                                )
+                                            "
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="feather feather-copy"
+                                            >
+                                                <rect
+                                                    x="9"
+                                                    y="9"
+                                                    width="13"
+                                                    height="13"
+                                                    rx="2"
+                                                    ry="2"
+                                                ></rect>
+                                                <path
+                                                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </div>
                                     <RangeSlider
                                         :min="1"
                                         :max="40"
@@ -49,9 +87,41 @@
                             </tab>
                             <tab name="shades">
                                 <div class="dialog__section">
-                                    <h2 class="dialog__section-title">
-                                        Shades
-                                    </h2>
+                                    <div class="dialog__top">
+                                        <h2 class="dialog__section-title">
+                                            Shades
+                                        </h2>
+                                        <div
+                                            class="dialog__top-action icon"
+                                            title="Copy All Shades"
+                                            @click="openColorAllColorsModal()"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="feather feather-copy"
+                                            >
+                                                <rect
+                                                    x="9"
+                                                    y="9"
+                                                    width="13"
+                                                    height="13"
+                                                    rx="2"
+                                                    ry="2"
+                                                ></rect>
+                                                <path
+                                                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </div>
                                     <RangeSlider
                                         :min="1"
                                         :max="40"
@@ -67,9 +137,41 @@
                             </tab>
                             <tab name="color-harmonies">
                                 <div class="dialog__section">
-                                    <h2 class="dialog__section-title">
-                                        Color Harmonies
-                                    </h2>
+                                    <div class="dialog__top">
+                                        <h2 class="dialog__section-title">
+                                            Color Harmonies
+                                        </h2>
+                                        <div
+                                            class="dialog__top-action icon"
+                                            title="Copy All Color Harmonies"
+                                            @click="openColorAllColorsModal()"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="feather feather-copy"
+                                            >
+                                                <rect
+                                                    x="9"
+                                                    y="9"
+                                                    width="13"
+                                                    height="13"
+                                                    rx="2"
+                                                    ry="2"
+                                                ></rect>
+                                                <path
+                                                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </div>
                                     <TabsNav
                                         size="sm"
                                         :tabsList="colorHarmoniesTabs"
@@ -187,8 +289,10 @@
                     </tab>
                     <tab name="gradient-generator">
                         <GradientGenerator
+                            ref="gradientGenerator"
                             @openImagesList="openImagesList"
                             @selectColor="selectColor"
+                            @openColorAllColorsModal="handleGradientGeneratorColors"
                         ></GradientGenerator>
                     </tab>
                     <tab name="images">
@@ -218,7 +322,7 @@
                     />
                 </div>
                 <div class="color-info__action">
-                    <button class="btn btn--block" @click="colotColorFromModal">
+                    <button class="btn btn--block" @click="colorsColorFromModal">
                         Copy Color
                     </button>
                     <button
@@ -230,15 +334,33 @@
                 </div>
             </div>
         </Modal>
-        <Modal :open="open" class="modal--images-list" @hide="hide">
-            <h1 class="modal__title">
-                Search Images
-            </h1>
+        <Modal
+            :open="copyAllColorModal"
+            class="modal--images-list"
+            @hide="copyAllColorModal = false"
+        >
+            <h1 class="modal__title">Copy All Colors</h1>
             <div class="modal__content">
+                <textarea
+                    ref="allColors"
+                    class="form-control"
+                    v-model="textAreaColors"
+                    readonly
+                    cols="30"
+                    :rows="textareaHeight"
+                />
             </div>
-            <button class="btn modal__close" @click="open = false">
-                Close
-            </button>
+            <div class="modal__action">
+                <button class="btn btn--block" @click="copyAllColors">
+                    Copy All Colors
+                </button>
+                <button
+                    class="btn btn--link btn--block modal__close"
+                    @click="copyAllColorModal = false"
+                >
+                    Close
+                </button>
+            </div>
         </Modal>
     </div>
 </template>
@@ -268,12 +390,15 @@ export default {
             shades: [],
             swatches,
             shadesCounter: 8,
+            textareaHeight: 8,
             colorHarmonies: [],
             addToAssetsModal: false,
+            copyAllColorModal: false,
             selectedColor: '#000000',
             imagesListModal: false,
             imagesListModalColor: '#000000',
             selectedColorName: '',
+            gradientGeneratorColors: []
         }
     },
     components: {
@@ -292,6 +417,31 @@ export default {
     computed: {
         ...mapState(['colors', 'activeColorIndex']),
         ...mapGetters(['activeColor']),
+        textAreaColors() {
+            if(this.activeMainTab == 'gradient-generator'){
+                return this.gradientGeneratorColors.map((color) => color + '\n').join('')
+            }else{
+                if (this.activeShadesTab == 'tints') {
+                    this.textareaHeight = this.tints.length + 1
+                    return this.tints.map((color) => color + '\n').join('')
+                } else if (this.activeShadesTab == 'shades') {
+                    this.textareaHeight = this.shades.length + 1
+                    return this.shades.map((color) => color + '\n').join('')
+                } else if (this.activeShadesTab == 'color-harmonies') {
+                    this.textareaHeight = 25
+                    let textareaContent = ``
+                    for (const [name, colors] of Object.entries(
+                        this.colorHarmonies
+                    )) {
+                        textareaContent += `//${name} \n`
+                        textareaContent += colors
+                            .map((color) => color + '\n')
+                            .join('')
+                    }
+                    return textareaContent
+                }
+            }
+        },
     },
     mounted() {
         this.generateTints()
@@ -326,9 +476,20 @@ export default {
         addColorToAssets() {
             this.addToAssetsModal = false
         },
-        colotColorFromModal() {
+        colorsColorFromModal() {
             this.$refs.selectedColorName.select()
             document.execCommand('copy')
+        },
+        copyAllColors() {
+            this.$refs.allColors.select()
+            document.execCommand('copy')
+        },
+        openColorAllColorsModal() {
+            this.copyAllColorModal = true
+        },
+        handleGradientGeneratorColors(colors) {
+            this.gradientGeneratorColors = colors
+            this.openColorAllColorsModal()
         },
         ...mapMutations(['setColors']),
     },

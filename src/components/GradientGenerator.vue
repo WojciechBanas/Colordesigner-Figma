@@ -179,10 +179,40 @@
                     @update="updateColorCounter"
                 />
             </div>
+            <div
+                class="gradient-generator__copy-all-colors icon"
+                title="Copy All Colors"
+                @click="openColorAllColorsModal()"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-copy"
+                >
+                    <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        ry="2"
+                    ></rect>
+                    <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                </svg>
+            </div>
         </div>
         <ColorList
             class="gradient-generator__color-list"
-            :colors="resultColros"
+            :colors="resultColors"
             @colorSelect="selectColor"
             @showImages="openImagesList"
         />
@@ -213,7 +243,7 @@ export default {
     },
     data() {
         return {
-            resultColros: [],
+            resultColors: [],
             colorCounter: 8,
             scaleMode: 'lch',
             firstColor: '#fafa6e',
@@ -253,7 +283,7 @@ export default {
     },
     methods: {
         generateGradient() {
-            this.resultColros = chroma
+            this.resultColors = chroma
                 .scale([this.firstColor, this.secondColor])
                 .mode(this.scaleMode)
                 .colors(this.colorCounter)
@@ -289,6 +319,9 @@ export default {
 
             this.generateGradient()
         },
+        openColorAllColorsModal(){
+            this.$emit('openColorAllColorsModal', this.resultColors)
+        }
     },
 }
 </script>
