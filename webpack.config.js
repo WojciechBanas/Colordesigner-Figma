@@ -5,7 +5,6 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin')
 module.exports = (env, argv)=>{
-    console.log()
     return {
         entry: {
             main: './src/main.js',
