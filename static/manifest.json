@@ -1,5 +1,8 @@
 {
     "name": "Color Designer",
+    "editorType": [
+        "figma"
+    ],
     "id": "739475857305927370",
     "api": "1.0.0",
     "main": "./main.js",

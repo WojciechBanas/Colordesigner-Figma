@@ -7,7 +7,8 @@ Gradient Generator
 Easy to use
 The plugin support only solid fills.
 
-Note:
+Notes:
+The plugin do not extract colors from gradients.
 Do Not try to select too many layers. It may freeze Figma.
 
 

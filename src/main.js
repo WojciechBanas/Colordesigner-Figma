@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce'
 figma.showUI(__html__)
 figma.ui.resize(750, 600)
 
+
 figma.ui.onmessage = message => {
     if (message === 'getColorsFromSelectedLayers') {
         figma.ui.postMessage({
@@ -17,58 +18,42 @@ figma.ui.onmessage = message => {
         })
     }
 }
-const allowedNodeTyps = [
-    'RECTANGLE',
-    'STAR',
-    'LINE',
-    'ELLIPSE',
-    'POLYGON',
-    'TEXT',
-    'GROUP',
-    'FRAME'
-]
+
+// layers
+let fills = []
+let layersNestingCounter = 0
 function getColorsFromSelectedLayers() {
-    const nodes = []
+    fills = []
+    layersNestingCounter = 0
     const colors = []
-
-    if (
-        !figma.currentPage.selection ||
-        figma.currentPage.selection.length >= 100
-    ) {
-        return ['#000000']
-    }
-    // get nodes
-    for (const node of figma.currentPage.selection) {
-        if (node.findAll) {
-            const newNodes = node.findAll(node => {
-                if (allowedNodeTyps.includes(node.type) && node.fills) {
-                    return true
-                }
-            })
-            Array.prototype.push.apply(nodes, newNodes)
-        } else {
-            if (allowedNodeTyps.includes(node.type) && node.fills) {
-                nodes.push(node)
-            }
-        }
-        if (nodes.length >= 100) {
-            break
-        }
-    }
-
-    // get colors
-    for (const node of nodes) {
-        for (const fill of node.fills) {
-            if (fill.type == 'SOLID') {
-                const fillHEX = chroma.gl(...Object.values(fill.color)).hex()
-                if (!colors.includes(fillHEX)) {
-                    colors.push(fillHEX)
-                }
+    extractorColorsFromLayers(figma.currentPage.selection)
+    console.log(figma.currentPage.selection)
+    for (const fill of fills) {
+        if (fill.type == 'SOLID') {
+            const fillHEX = chroma.gl(...Object.values(fill.color)).hex()
+            if (!colors.includes(fillHEX)) {
+                colors.push(fillHEX)
             }
         }
     }
     return colors
 }
+function extractorColorsFromLayers(layers){
+    for (const node of layers) {
+        if (node.fills && node.fills.length) {
+            fills.push(...node.fills)
+        }
+        if (node.strokes && node.strokes.length) {
+            fills.push(...node.strokes)
+        }
+        if(layersNestingCounter < 5 && node.children && node.children.length){
+            extractorColorsFromLayers(node.children)
+            layersNestingCounter++
+        }
+    }
+}
+
+// styles
 function getColorsFromLocalStyles() {
     const colors = []
     const styles = figma.getLocalPaintStyles()
@@ -85,6 +70,7 @@ function getColorsFromLocalStyles() {
     }
     return colors
 }
+
 figma.on(
     'selectionchange',
     debounce(() => {

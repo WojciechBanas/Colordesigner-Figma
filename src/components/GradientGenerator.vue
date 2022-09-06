@@ -280,6 +280,8 @@ export default {
     },
     mounted() {
         this.generateGradient()
+        this.setGlobalActiveColorSource('selected-layers')
+        parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
     },
     methods: {
         generateGradient() {
