@@ -13,7 +13,17 @@ const createStore = () => {
             activeColorIndex: 0,
             presentationMode: false,
             stockPromo: false,
-            globalActiveColorSource: 'selected-layers',
+            activeColorSourceTab: 'selected-layers',
+            colorSourceTabs: [
+                {
+                    label: 'Selected Layers',
+                    name: 'selected-layers'
+                },
+                {
+                    label: 'Local Styles',
+                    name: 'local-styles'
+                }
+            ],
             cachedImages: {}
         },
         getters: {
@@ -49,8 +59,14 @@ const createStore = () => {
             removeCachedImages(state){
                 state.cachedImages = {}
             },
-            setGlobalActiveColorSource(state, name) {
-                state.globalActiveColorSource = name
+            setColorSourceTab(state, name) {
+                state.activeColorSourceTab = name
+
+                if(name === 'local-styles'){
+                    parent.postMessage({ pluginMessage: 'getColorsFromLibrary' }, '*')
+                }else{
+                    parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
+                }
             }
         }
     })

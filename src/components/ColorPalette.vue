@@ -8,7 +8,7 @@
             class="color-palette__tabs"
             size="sm"
             :tabsList="colorSourceTabs"
-            @tabChange="handleColorSourceTabChange"
+            @tabChange="setColorSourceTab"
             :activeTab="activeColorSourceTab"
         ></TabsNav>
         <div class="color-palette__color-list">
@@ -36,7 +36,7 @@ import TabsNav from './tabs/TabsNav.vue'
 
 export default {
     components: {
-        TabsNav,
+        TabsNav
     },
     computed: {
         ...mapState([
@@ -44,25 +44,25 @@ export default {
             'activeColorIndex',
             'activeColor',
             'stockPromo',
-            'globalActiveColorSource'
+            'activeColorSourceTab',
+            'colorSourceTabs'
         ]),
-        ...mapGetters(['activeColor']),
+        ...mapGetters(['activeColor'])
     },
     data() {
         return {
             dialogVisible: false,
-            notData: '',
+            notData: ''
         }
     },
     mounted() {
-        this.handleMessage()
-        this.setGlobalActiveColorSource('selected-layers')
-        parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
     },
     methods: {
         showPaletteOnline() {
-            let colors = this.colors.map((color) => {
-                return chroma(color.value).hex().substring(1)
+            let colors = this.colors.map(color => {
+                return chroma(color.value)
+                    .hex()
+                    .substring(1)
             })
             colors = colors.join('-')
             window.open(
@@ -70,52 +70,20 @@ export default {
                 '_blank'
             )
         },
-        handleMessage() {
-            onmessage = (event) => {
-                if (
-                    event.data.pluginMessage.name ==
-                        'colorsFromSelectedLayers' &&
-                    this.globalActiveColorSource == 'local-styles'
-                ) {
-                    return
-                }
-                this.changeActiveColor(0)
-                let colors = []
-                if (
-                    event.data.pluginMessage.data &&
-                    event.data.pluginMessage.data.length
-                ) {
-                    for (let color of event.data.pluginMessage.data) {
-                        colors.push({
-                            title: color,
-                            value: color,
-                        })
-                    }
-                } else {
-                    colors = [
-                        {
-                            title: '#000000',
-                            value: '#000000',
-                        },
-                    ]
-                }
-                this.setColors(colors)
-            }
-        },
-        ...mapMutations(['changeActiveColor', 'setColors', 'setGlobalActiveColorSource']),
+        ...mapMutations([
+            'changeActiveColor',
+            'setColors',
+            'setColorSourceTab'
+        ])
     },
-    watch:{
-        activeMainTab() {
-            if(this.globalActiveColorSource && this.globalActiveColorSource == 'local-styles') {
-                this.activeColorSourceTab = 'local-styles'
-            }
-        }
+    watch: {
+        activeMainTab() {},
     },
     filters: {
         formatColor(color) {
             return color.match(/[\d,%.]+/)[0]
-        },
+        }
     },
-    mixins: [tabsMixin],
+    mixins: [tabsMixin]
 }
 </script>

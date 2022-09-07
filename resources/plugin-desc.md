@@ -8,8 +8,6 @@ Easy to use
 The plugin support only solid fills.
 
 Notes:
-The plugin do not extract colors from gradients.
 Do Not try to select too many layers. It may freeze Figma.
-
 
 https://colordesigner.io/contact

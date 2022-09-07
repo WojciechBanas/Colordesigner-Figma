@@ -1,5 +1,6 @@
 import chroma from 'chroma-js'
 import debounce from 'lodash/debounce'
+import clone from 'lodash/clone'
 
 figma.showUI(__html__)
 figma.ui.resize(750, 600)
@@ -27,26 +28,39 @@ function getColorsFromSelectedLayers() {
     layersNestingCounter = 0
     const colors = []
     extractorColorsFromLayers(figma.currentPage.selection)
-    console.log(figma.currentPage.selection)
     for (const fill of fills) {
         if (fill.type == 'SOLID') {
             const fillHEX = chroma.gl(...Object.values(fill.color)).hex()
             if (!colors.includes(fillHEX)) {
                 colors.push(fillHEX)
             }
+        } else {
+            if (fill.gradientStops) {
+                for (const gradientStops of fill.gradientStops) {
+                    let figmaColor = clone(gradientStops.color)
+                    delete figmaColor.a
+                    const fillHEX = chroma.gl(...Object.values(figmaColor)).hex()
+                    if (!colors.includes(fillHEX)) {
+                        colors.push(fillHEX)
+                    }
+                }
+            }
         }
     }
     return colors
 }
-function extractorColorsFromLayers(layers){
+function extractorColorsFromLayers(layers) {
     for (const node of layers) {
         if (node.fills && node.fills.length) {
             fills.push(...node.fills)
         }
+        if (node.backgrounds && node.backgrounds.length) {
+            fills.push(...node.backgrounds)
+        }
         if (node.strokes && node.strokes.length) {
             fills.push(...node.strokes)
         }
-        if(layersNestingCounter < 5 && node.children && node.children.length){
+        if (node.children && node.children.length) {
             extractorColorsFromLayers(node.children)
             layersNestingCounter++
         }

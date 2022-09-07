@@ -1,17 +1,6 @@
 export default {
     data() {
         return {
-            activeColorSourceTab: 'selected-layers',
-            colorSourceTabs: [
-                {
-                    label: 'Selected Layers',
-                    name: 'selected-layers'
-                },
-                {
-                    label: 'Local Styles',
-                    name: 'local-styles'
-                }
-            ],
             activeMainTab: 'color-list',
             mainTabs: [
                 {
@@ -134,17 +123,5 @@ export default {
         handleNewColorTabChange(name){
             this.activeColorsTab = name
         },
-        handleColorSourceTabChange(name){
-            if(this.$options._componentTag  != 'GradientGenerator'){
-                this.changeActiveColor(0)
-            }
-            if(name === 'local-styles'){
-                parent.postMessage({ pluginMessage: 'getColorsFromLibrary' }, '*')
-            }else{
-                parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
-            }
-            this.setGlobalActiveColorSource(name)
-            this.activeColorSourceTab = name
-        }
     },
 }

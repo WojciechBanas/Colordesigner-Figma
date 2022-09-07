@@ -137,7 +137,7 @@
                 <TabsNav
                     size="sm"
                     :tabsList="colorSourceTabs"
-                    @tabChange="handleColorSourceTabChange"
+                    @tabChange="setColorSourceTab"
                     :activeTab="activeColorSourceTab"
                 ></TabsNav>
                 <div class="color-palette__color-list">
@@ -239,7 +239,7 @@ export default {
         ColorList,
         TabsNav,
         Tabs,
-        Tab,
+        Tab
     },
     data() {
         return {
@@ -249,11 +249,17 @@ export default {
             firstColor: '#fafa6e',
             secondColor: '#2A4858',
             activeColorPicker: 'firstColor',
-            colorPicker: false,
+            colorPicker: false
         }
     },
     computed: {
-        ...mapState(['colors', 'activeColorIndex', 'noSelection', 'globalActiveColorSource']),
+        ...mapState([
+            'colors',
+            'activeColorIndex',
+            'noSelection',
+            'activeColorSourceTab',
+            'colorSourceTabs'
+        ]),
         ...mapGetters(['activeColor']),
         activeColor: {
             set(value) {
@@ -261,8 +267,8 @@ export default {
             },
             get() {
                 return this[this.activeColorPicker]
-            },
-        },
+            }
+        }
     },
     watch: {
         colorCounter() {
@@ -276,12 +282,10 @@ export default {
         },
         scaleMode() {
             this.generateGradient()
-        },
+        }
     },
     mounted() {
         this.generateGradient()
-        this.setGlobalActiveColorSource('selected-layers')
-        parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
     },
     methods: {
         generateGradient() {
@@ -321,10 +325,10 @@ export default {
 
             this.generateGradient()
         },
-        openColorAllColorsModal(){
+        openColorAllColorsModal() {
             this.$emit('openColorAllColorsModal', this.resultColors)
         },
-        ...mapMutations(['setGlobalActiveColorSource'])
-    },
+        ...mapMutations(['setColorSourceTab'])
+    }
 }
 </script>

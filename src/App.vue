@@ -292,7 +292,9 @@
                             ref="gradientGenerator"
                             @openImagesList="openImagesList"
                             @selectColor="selectColor"
-                            @openColorAllColorsModal="handleGradientGeneratorColors"
+                            @openColorAllColorsModal="
+                                handleGradientGeneratorColors
+                            "
                         ></GradientGenerator>
                     </tab>
                     <tab name="images">
@@ -322,7 +324,10 @@
                     />
                 </div>
                 <div class="color-info__action">
-                    <button class="btn btn--block" @click="colorsColorFromModal">
+                    <button
+                        class="btn btn--block"
+                        @click="colorsColorFromModal"
+                    >
                         Copy Color
                     </button>
                     <button
@@ -412,19 +417,21 @@ export default {
         Tab,
         ColorSwatches,
         ImagesList,
-        ImagesListModal,
+        ImagesListModal
     },
     computed: {
-        ...mapState(['colors', 'activeColorIndex']),
+        ...mapState(['colors', 'activeColorIndex', 'activeColorSourceTab']),
         ...mapGetters(['activeColor']),
         textAreaColors() {
-            if(this.activeMainTab == 'gradient-generator'){
-                return this.gradientGeneratorColors.map((color) => color + '\n').join('')
-            }else{
+            if (this.activeMainTab == 'gradient-generator') {
+                return this.gradientGeneratorColors
+                    .map(color => color + '\n')
+                    .join('')
+            } else {
                 if (this.activeShadesTab == 'tints') {
-                    return this.tints.map((color) => color + '\n').join('')
+                    return this.tints.map(color => color + '\n').join('')
                 } else if (this.activeShadesTab == 'shades') {
-                    return this.shades.map((color) => color + '\n').join('')
+                    return this.shades.map(color => color + '\n').join('')
                 } else if (this.activeShadesTab == 'color-harmonies') {
                     let textareaContent = ``
                     for (const [name, colors] of Object.entries(
@@ -432,18 +439,19 @@ export default {
                     )) {
                         textareaContent += `//${name} \n`
                         textareaContent += colors
-                            .map((color) => color + '\n')
+                            .map(color => color + '\n')
                             .join('')
                     }
                     return textareaContent
                 }
             }
-        },
+        }
     },
     mounted() {
         this.generateTints()
         this.generateShades()
         this.generateColorHarmonies()
+        this.handleMessageFromFigma()
     },
     methods: {
         generateTints() {
@@ -488,7 +496,39 @@ export default {
             this.gradientGeneratorColors = colors
             this.openColorAllColorsModal()
         },
-        ...mapMutations(['setColors']),
+        handleMessageFromFigma() {
+            window.onmessage = event => {
+                if (
+                    event.data.pluginMessage.name ==
+                        'colorsFromSelectedLayers' &&
+                    this.activeColorSourceTab == 'local-styles'
+                ) {
+                    return
+                }
+                this.changeActiveColor(0)
+                let colors = []
+                if (
+                    event.data.pluginMessage.data &&
+                    event.data.pluginMessage.data.length
+                ) {
+                    for (let color of event.data.pluginMessage.data) {
+                        colors.push({
+                            title: color,
+                            value: color
+                        })
+                    }
+                } else {
+                    colors = [
+                        {
+                            title: '#000000',
+                            value: '#000000'
+                        }
+                    ]
+                }
+                this.setColors(colors)
+            }
+        },
+        ...mapMutations(['setColors', 'changeActiveColor'])
     },
     watch: {
         activeColorIndex() {
@@ -506,8 +546,8 @@ export default {
         },
         shadesCounter() {
             this.generateShades()
-        },
+        }
     },
-    mixins: [tabsMixin],
+    mixins: [tabsMixin]
 }
 </script>
