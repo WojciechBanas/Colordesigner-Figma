@@ -56,6 +56,8 @@ export default {
         }
     },
     mounted() {
+        parent.postMessage({ pluginMessage: 'getColorsFromSelectedLayers' }, '*')
+        this.setColorSourceTab('selected-layers')
     },
     methods: {
         showPaletteOnline() {
