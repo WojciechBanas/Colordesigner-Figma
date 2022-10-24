@@ -1,6 +1,6 @@
 <template>
     <Modal :open="open" class="modal--images-list" @hide="hide">
-        <h1 class="modal__title">Search Images <a href="https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(AdobeXD)epi2(10freephotos)url(https://stock.adobe.com)" target="_blank"  class="images-list__stock-promo"><span class="label">Get a 30-day trial</span></a></h1>
+        <h1 class="modal__title">Search Images <a href="https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1100l89288" target="_blank"  class="images-list__stock-promo"><span class="label">Get a 30-day trial</span></a></h1>
         <div class="modal__content">
             <div class="images-list">
                 <div class="images-list__search">
@@ -158,7 +158,7 @@ export default {
         },
         openAdobeStock() {
             shell.openExternal(
-                'https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(Figma)epi2(error)url(https://stock.adobe.com)'
+                'https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1100l89288'
             )
         },
         removeImages() {

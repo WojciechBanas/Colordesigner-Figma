@@ -1,17 +1,20 @@
 <template>
     <div ref="imagesList" class="images-list">
         <a
-        class="images-list__banner"
-            href="https://clk.tradedoubler.com/click?p=264338&a=3096280&g=22903366"
-            target="_BLANK"
-        >
-            <img
-                src="https://imppl.tradedoubler.com/imp?type(img)g(22903366)a(3096280)"
+            class="images-list__banner"
+            href="https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1100l89288"
+            rel="sponsored"
+            ><img
+                src="https://adobe-creative.prf.hn/source/camref:1011lrgs8/creativeref:1100l89288"
                 border="0"
-            />
-        </a>
+        /></a>
+
         <div class="images-list__search">
-            <input class="form-control" v-model="activePhrase" @keyup.enter="getImages" />
+            <input
+                class="form-control"
+                v-model="activePhrase"
+                @keyup.enter="getImages"
+            />
             <button class="btn btn--block" @click="getImages">Search</button>
         </div>
         <div class="images-list__nav">
@@ -24,16 +27,23 @@
         <div class="images-list__loader" v-show="isLoading">Loading...</div>
         <div class="images-list__error" v-show="isError">
             <h1 class="images-list__error-title">Oops! something went wrong</h1>
-            <p class="images-list__error-desc">You can try to use the Adobe Stock search</p>
+            <p class="images-list__error-desc">
+                You can try to use the Adobe Stock search
+            </p>
             <div class="images-list__error-actions">
-                <button class="btn" @click="openAdobeStock">Open Adobe Stock</button>
-                <button class="btn btn--link" @click="getImages"> Try Again</button>
+                <button class="btn" @click="openAdobeStock">
+                    Open Adobe Stock
+                </button>
+                <button class="btn btn--link" @click="getImages">
+                    Try Again
+                </button>
             </div>
         </div>
-        <div class="images-list__list"
-        :style="{
-            opacity: isLoading ? '0' : '1'
-        }"
+        <div
+            class="images-list__list"
+            :style="{
+                opacity: isLoading ? '0' : '1'
+            }"
         >
             <a
                 class="images-list__image"
@@ -48,7 +58,7 @@
     </div>
 </template>
 <script>
-import {mapState, mapMutations, mapGetters} from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import { getAffilateURL } from './../utils/stock-utils'
 import TabsNav from './tabs/TabsNav.vue'
 import chroma from 'chroma-js'
@@ -110,7 +120,9 @@ export default {
             this.loadedImages = 0
             this.imagesToLoad = 1000
             this.isLoading = true
-            const color = chroma(this.activeColor.hex).hex().substring(1)
+            const color = chroma(this.activeColor.hex)
+                .hex()
+                .substring(1)
             let images = null
             try {
                 const response = await fetch(
@@ -118,7 +130,10 @@ export default {
                 )
                 const images = await response.json()
                 if (images) {
-                    if (images.files.status === 'error' || !images.files.length) {
+                    if (
+                        images.files.status === 'error' ||
+                        !images.files.length
+                    ) {
                         this.isError = true
                         this.isLoading = false
                         this.removeImages()
@@ -145,8 +160,10 @@ export default {
             this.activePhrase = phrase
             this.getImages()
         },
-        openAdobeStock(){
-            shell.openExternal('https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(Figma)epi2(error)url(https://stock.adobe.com)')
+        openAdobeStock() {
+            shell.openExternal(
+                'https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1100l89288'
+            )
         },
         removeImages() {
             this.loadedImages = 0

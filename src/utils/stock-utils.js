@@ -1,3 +1,4 @@
 export function getAffilateURL(url) {
-    return `https://clk.tradedoubler.com/click?p(264338)a(3096280)g(22913782)epi(Figma)epi2(image)url(${url})`
+    const encodedURL = encodeURIComponent(url)
+    return `https://adobe.prf.hn/click/camref:1011lrgs8/pubref:figma/ar:image/destination:${encodedURL}`
 }
