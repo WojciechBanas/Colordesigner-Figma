@@ -4,6 +4,7 @@
             class="images-list__banner"
             href="https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1100l89288"
             rel="sponsored"
+            target="_blank"
             ><img
                 src="https://adobe-creative.prf.hn/source/camref:1011lrgs8/creativeref:1100l89288"
                 border="0"
@@ -162,7 +163,7 @@ export default {
         },
         openAdobeStock() {
             shell.openExternal(
-                'https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1100l89288'
+                'https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1101l89509'
             )
         },
         removeImages() {

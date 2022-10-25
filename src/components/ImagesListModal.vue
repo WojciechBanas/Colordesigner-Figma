@@ -158,7 +158,7 @@ export default {
         },
         openAdobeStock() {
             shell.openExternal(
-                'https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1100l89288'
+                'https://adobe.prf.hn/click/camref:1011lrgs8/creativeref:1101l89509'
             )
         },
         removeImages() {
